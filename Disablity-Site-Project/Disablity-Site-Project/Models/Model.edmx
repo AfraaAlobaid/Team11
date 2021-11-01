@@ -1,0 +1,438 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Gig">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SellerId" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="Image" Type="nvarchar" MaxLength="355" />
+          <Property Name="Price" Type="nvarchar" MaxLength="255" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsActive" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="JobOffer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuyerId" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="JobType" Type="nvarchar" MaxLength="255" />
+          <Property Name="JobLocation" Type="nvarchar" MaxLength="255" />
+          <Property Name="Image" Type="nvarchar" MaxLength="355" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Budget" Type="nvarchar" MaxLength="255" />
+          <Property Name="RequiredExp" Type="nvarchar" MaxLength="255" />
+          <Property Name="AttachedFile" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="JobSkill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SkillId" Type="int" Nullable="false" />
+          <Property Name="JobId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsActive" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Email" Type="nvarchar" MaxLength="355" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="255" />
+          <Property Name="ProfilePicture" Type="nvarchar(max)" />
+          <Property Name="ShortDescription" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" />
+          <Property Name="ConfirmPassword" Type="nvarchar" MaxLength="255" />
+          <Property Name="Type" Type="nvarchar" MaxLength="255" />
+          <Property Name="Role" Type="int" />
+          <Property Name="IsActive" Type="int" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Gig_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Gig" Type="Self.Gig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Gig">
+              <PropertyRef Name="SellerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobOffer_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="JobOffer" Type="Self.JobOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobOffer">
+              <PropertyRef Name="BuyerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobSkill_JobOffer">
+          <End Role="JobOffer" Type="Self.JobOffer" Multiplicity="1" />
+          <End Role="JobSkill" Type="Self.JobSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOffer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobSkill">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobSkill_Skill">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+          <End Role="JobSkill" Type="Self.JobSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobSkill">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Skill_JobOffer">
+          <End Role="JobOffer" Type="Self.JobOffer" Multiplicity="0..1" />
+          <End Role="Skill" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOffer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Skill">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Gig" EntityType="Self.Gig" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobOffer" EntityType="Self.JobOffer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobSkill" EntityType="Self.JobSkill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Gig_User" Association="Self.FK_Gig_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Gig" EntitySet="Gig" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobOffer_User" Association="Self.FK_JobOffer_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="JobOffer" EntitySet="JobOffer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobSkill_JobOffer" Association="Self.FK_JobSkill_JobOffer">
+            <End Role="JobOffer" EntitySet="JobOffer" />
+            <End Role="JobSkill" EntitySet="JobSkill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobSkill_Skill" Association="Self.FK_JobSkill_Skill">
+            <End Role="Skill" EntitySet="Skill" />
+            <End Role="JobSkill" EntitySet="JobSkill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Skill_JobOffer" Association="Self.FK_Skill_JobOffer">
+            <End Role="JobOffer" EntitySet="JobOffer" />
+            <End Role="Skill" EntitySet="Skill" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Gig">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SellerId" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="355" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Gig_User" FromRole="Gig" ToRole="User" />
+        </EntityType>
+        <EntityType Name="JobOffer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuyerId" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JobType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="JobLocation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="355" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Budget" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RequiredExp" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AttachedFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_JobOffer_User" FromRole="JobOffer" ToRole="User" />
+          <NavigationProperty Name="JobSkills" Relationship="Self.FK_JobSkill_JobOffer" FromRole="JobOffer" ToRole="JobSkill" />
+          <NavigationProperty Name="Skills" Relationship="Self.FK_Skill_JobOffer" FromRole="JobOffer" ToRole="Skill" />
+        </EntityType>
+        <EntityType Name="JobSkill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SkillId" Type="Int32" Nullable="false" />
+          <Property Name="JobId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="JobOffer" Relationship="Self.FK_JobSkill_JobOffer" FromRole="JobSkill" ToRole="JobOffer" />
+          <NavigationProperty Name="Skill" Relationship="Self.FK_JobSkill_Skill" FromRole="JobSkill" ToRole="Skill" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="JobOffer" Relationship="Self.FK_Skill_JobOffer" FromRole="Skill" ToRole="JobOffer" />
+          <NavigationProperty Name="JobSkills" Relationship="Self.FK_JobSkill_Skill" FromRole="Skill" ToRole="JobSkill" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="355" FixedLength="false" Unicode="true" />
+          <Property Name="Contact" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="Int32" />
+          <Property Name="IsActive" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Gigs" Relationship="Self.FK_Gig_User" FromRole="User" ToRole="Gig" />
+          <NavigationProperty Name="JobOffers" Relationship="Self.FK_JobOffer_User" FromRole="User" ToRole="JobOffer" />
+        </EntityType>
+        <Association Name="FK_Gig_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Gig" Type="Self.Gig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Gig">
+              <PropertyRef Name="SellerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobOffer_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="JobOffer" Type="Self.JobOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobOffer">
+              <PropertyRef Name="BuyerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobSkill_JobOffer">
+          <End Role="JobOffer" Type="Self.JobOffer" Multiplicity="1" />
+          <End Role="JobSkill" Type="Self.JobSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOffer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobSkill">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Skill_JobOffer">
+          <End Role="JobOffer" Type="Self.JobOffer" Multiplicity="0..1" />
+          <End Role="Skill" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobOffer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Skill">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobSkill_Skill">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+          <End Role="JobSkill" Type="Self.JobSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobSkill">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Gigs" EntityType="Self.Gig" />
+          <EntitySet Name="JobOffers" EntityType="Self.JobOffer" />
+          <EntitySet Name="JobSkills" EntityType="Self.JobSkill" />
+          <EntitySet Name="Skills" EntityType="Self.Skill" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Gig_User" Association="Self.FK_Gig_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Gig" EntitySet="Gigs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobOffer_User" Association="Self.FK_JobOffer_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="JobOffer" EntitySet="JobOffers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobSkill_JobOffer" Association="Self.FK_JobSkill_JobOffer">
+            <End Role="JobOffer" EntitySet="JobOffers" />
+            <End Role="JobSkill" EntitySet="JobSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Skill_JobOffer" Association="Self.FK_Skill_JobOffer">
+            <End Role="JobOffer" EntitySet="JobOffers" />
+            <End Role="Skill" EntitySet="Skills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobSkill_Skill" Association="Self.FK_JobSkill_Skill">
+            <End Role="Skill" EntitySet="Skills" />
+            <End Role="JobSkill" EntitySet="JobSkills" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="Gigs">
+            <EntityTypeMapping TypeName="DatabaseModel.Gig">
+              <MappingFragment StoreEntitySet="Gig">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobOffers">
+            <EntityTypeMapping TypeName="DatabaseModel.JobOffer">
+              <MappingFragment StoreEntitySet="JobOffer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="JobLocation" ColumnName="JobLocation" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Budget" ColumnName="Budget" />
+                <ScalarProperty Name="RequiredExp" ColumnName="RequiredExp" />
+                <ScalarProperty Name="AttachedFile" ColumnName="AttachedFile" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobSkills">
+            <EntityTypeMapping TypeName="DatabaseModel.JobSkill">
+              <MappingFragment StoreEntitySet="JobSkill">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="DatabaseModel.Skill">
+              <MappingFragment StoreEntitySet="Skill">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DatabaseModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ConfirmPassword" ColumnName="ConfirmPassword" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

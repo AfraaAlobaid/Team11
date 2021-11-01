@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="123d59f5847b4c3586da86c27cbc2ed1" Name="Diagram1">
+        <EntityTypeShape EntityType="DatabaseModel.Gig" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.JobOffer" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.JobSkill" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Skill" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.User" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="DatabaseModel.FK_Gig_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_JobOffer_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_JobSkill_JobOffer" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_Skill_JobOffer" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_JobSkill_Skill" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

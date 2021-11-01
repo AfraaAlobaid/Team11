@@ -1,0 +1,237 @@
+﻿@model List<Disablity_Site_Project.helpingClasses.JobOfferDTO>
+@{
+    Layout = null;
+}
+@using System.Globalization;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Disability Site</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/Content/Main/assets/img/favicon.png" rel="icon">
+    <link href="~/Content/Main/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/Content/Main/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="~/Content/Main/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/Main/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/Content/Main/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/Content/Main/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="~/Content/Main/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/Content/Main/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
+    <!-- Template Main CSS File -->
+    <link href="~/Content/Main/assets/css/style.css" rel="stylesheet">
+    <!--DatePicker-->
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!-- =======================================================
+    * Template Name: Arsha - v4.6.0
+    * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+<body style="background-color: #447c7b">
+    <style>
+        .team .member span::after {
+        background:none
+        }
+        .btn-custom {
+            background: aliceblue;
+        }
+    </style>
+    <header id="header" class="fixed-top ">
+        <div class="container d-flex align-items-center">
+            <h1 class="logo me-auto"><a href="@Url.Action("Main","Auth")">منصة حُر</a></h1>
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li class="mr-10">
+                        <input value="@ViewBag.title" placeholder="Filter results" type="text" name="name" class="form-control" id="search" required>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary" type="button" onclick="changeHrefSearch()">Filter</button>
+
+                    </li>
+                    @*<li><a class="nav-link scrollto " href="@Url.Action("Main","Auth")">Home</a></li>*@
+                    @*<li><a class="nav-link scrollto" href="#about">About</a></li>
+                        <li><a class="nav-link scrollto" href="#services">Services</a></li>
+                        <li><a class="nav-link   scrollto" href="#portfolio">Portfolio</a></li>*@
+                    @*<li><a class="nav-link scrollto" href="#team">Team</a></li>*@
+                    @*<li class="dropdown">
+                            <a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="#">Drop Down 1</a></li>
+                                <li class="dropdown">
+                                    <a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                                    <ul>
+                                        <li><a href="#">Deep Drop Down 1</a></li>
+                                        <li><a href="#">Deep Drop Down 2</a></li>
+                                        <li><a href="#">Deep Drop Down 3</a></li>
+                                        <li><a href="#">Deep Drop Down 4</a></li>
+                                        <li><a href="#">Deep Drop Down 5</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Drop Down 2</a></li>
+                                <li><a href="#">Drop Down 3</a></li>
+                                <li><a href="#">Drop Down 4</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="nav-link scrollto" href="#contact">Contact</a></li>*@
+                    @*<li><a class="getstarted scrollto" href="@Url.Action("Login","Auth")">Login</a></li>*@
+                </ul>
+                <ul style="margin-left:100px">
+                    <li class="dropdown">
+                        <div style="margin-left:0px" class="pic"><img style="width:40px;margin-right:10px;border-radius:76px" src="~/Content/assets/images/@ViewBag.profile" class="img-fluid rounded-circle" alt="" st></div>
+                        <ul>
+                            @if (ViewBag.dash == "Buyer")
+                            {
+                                <li><a href="@Url.Action("Dashboard","Buyer")">Dashboard</a></li>
+                            }
+                            @if (ViewBag.dash == "Seller")
+                            {
+                                <li><a href="@Url.Action("Dashboard","Seller")">Dashboard</a></li>
+                            }
+                            @*<li><a href="#">Deep Drop Down 2</a></li>
+                                <li><a href="#">Deep Drop Down 3</a></li>
+                                <li><a href="#">Deep Drop Down 4</a></li>
+                                <li><a href="#">Deep Drop Down 5</a></li>*@
+                        </ul>
+                    </li>
+
+                    @*<li class="nav-link">
+                            <div style="margin-left:0px" class="pic"><img style="width:40px;border-radius:76px" src="~/Content/assets/images/@ViewBag.profile" class="img-fluid rounded-circle" alt=""></div>
+                        </li>*@
+                    <li>
+                        <a class="getstarted scrollto ml-0" href="@Url.Action(ViewBag.button,"Auth")" style="margin-left:2px">@ViewBag.button</a>
+                    </li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+        </div>
+    </header><!-- End Header -->
+    <section id="team" class="team section-bg">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2 class="text-white mt-10" style="margin-top:60px">Recently Available Jobs</h2>
+                @*<p>Following Gigs are available against your search</p>*@
+            </div>
+            <span class="bg-white" style="color:@ViewBag.color;">@ViewBag.msg</span>
+            <div class="row">
+                @if (Model.Count == 0)
+                {
+                    <div class="col-lg-12 text-center">
+                        <div class=" text-center" data-aos="zoom-in" data-aos-delay="100">
+                            <h1 style="color:red" class="text-center">Nothing found</h1>
+                        </div>
+                    </div>
+                }
+                @foreach (Disablity_Site_Project.helpingClasses.JobOfferDTO job in Model)
+                {
+
+                    <div class="col-md-8 m-auto mt-2">
+                        <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="pic"><img src="~/Content/assets/images/@job.Image" class="img-fluid" alt=""></div>
+                            <div class="member-info">
+                                <h2 style="color:darkslategray">@job.Title</h2>
+                                <h6 style="color:black;font-weight:bold">@job.Description </h6>
+
+                                <p style="color:black;">@job.CreatedAt - @job.JobType -@job.JobLocation</p>
+                                <div class="row mt-4">
+                                    <div class="col-md-6 text-right">
+                                        <p style="color:black">@job.Budget: الميزانية$</p>
+
+                                    </div>
+                                    <div class="col-md-6 d-flex ">
+                                        <button id="datepicker" class="btn btn-danger btn-lg pull-left" @*onclick="changeHref(@gig.SellerId, @gig.Id)"*@>
+                                            <small>
+                                                أبدأ العمل
+                                            </small> 
+                                        </button>
+                                    </div>
+
+                                </div>
+                                @*<div class="social">
+            <a href=""><i class="ri-twitter-fill"></i></a>
+            <a href=""><i class="ri-facebook-fill"></i></a>
+            <a href=""><i class="ri-instagram-fill"></i></a>
+            <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+
+        </div>*@
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        @*<button id="datepicker" class="btn btn-success pull-right" onclick="changeHref(@job.BuyerId, @gig.Id)"><small>Schedule Meeting</small> <i class="bi bi-alarm-fill"></i></button>*@
+                                    </div>
+                                    @*<div class="col-md-6 d-flex align-items-center">
+                <input type="date" id="@("date"+@job.Id)" name="Date">
+            </div>*@
+
+                                </div>
+                            </div>
+
+                            @foreach (var skill in ViewBag.skills)
+                            {
+                                if (skill.JobId == job.Id)
+                                {
+
+                                    <button style="margin-left:10px;" class="btn btn-custom" disabled>@skill.Name</button>
+                                }
+
+                            }
+
+                        </div>
+                    </div>
+                    <div class="">
+
+                    </div>
+
+                }
+            </div>
+
+        </div>
+    </section>
+    <script src="~/Content/Main/assets/vendor/aos/aos.js"></script>
+    <script src="~/Content/Main/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/Main/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/Content/Main/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/Content/Main/assets/vendor/php-email-form/validate.js"></script>
+    <script src="~/Content/Main/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/Content/Main/assets/vendor/waypoints/noframework.waypoints.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/Content/Main/assets/js/main.js"></script>
+    <script type="text/javascript" src="~/Content/Main/assets/js/script.js"></script>
+    <script>
+        function changeHref(id,gigid) {
+            console.log(id)
+            var url = '@Url.Action("ScheduleMeeting", "Buyer")';
+            var txtVal = document.getElementById("date" + gigid).value;
+            if (txtVal == "" || txtVal == null) {
+                alert("Plz select a valid date first")
+            } else {
+                window.location.href = url + '/?dateTime=' + txtVal + '&title=' + document.getElementById("search").value+'&sellerId='+id;
+            }
+        }
+
+        function changeHrefSearch() {
+            var txtVal = document.getElementById("search").value;
+            console.log(txtVal)
+            var url = '@Url.Action("SearchJobs", "Home")';
+            window.location.href = url + '/?Title=' + txtVal;
+        }
+    </script>
+</body>
+</html>

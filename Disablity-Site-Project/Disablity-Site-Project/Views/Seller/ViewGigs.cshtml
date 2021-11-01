@@ -1,0 +1,250 @@
+﻿
+@{
+    ViewBag.Title = "View Gigs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Disablity_Site_Project.helpingClasses;
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Do You Want to Delete?</h4>
+                <button type="button" class="close text-danger" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-footer text-center">
+                <a class="btn btn-danger" id="deleteId">Yes</a>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="updateModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="text-center text-bold">Update Gig</h5>
+                <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form  enctype="multipart/form-data" action="@Url.Action("PostUpdateGig","Seller")" method="post">
+                    <input type="hidden" name="Id" id="id" />
+                    <center>
+                        <img id="img" src="" width="200" height="200"><br />
+                    </center>
+
+                    <div class="form-group">
+                        <label class="text-bold">Gig Title<span class="text-danger">*</span></label>
+                        <input id="title" type="text" name="Title" class="form-control" placeholder="Add Job Title" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-bold">Gig description<span class="text-danger">*</span></label>
+                        <textarea id="description" onkeyup="countChar(this)" rows="10" cols="50" maxlength="500" style="resize:vertical;" name="Description" class="form-control" placeholder="Add Job offer description here..." required></textarea>
+                        @*<div id="charNum" style="color:green">0/500 maximum characters</div>*@
+                    </div>
+                    <div class="form-group">
+                        <label class="text-bold">Price<span class="text-danger">*</span></label><br>
+                        <div class="dollar"><input id="price" name="Price" class="form-control" min="0" step="0.01" type="number"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-bold">Add gig image:</label><span class="text-danger">*</span><br />
+                        <input type="file" id="image" name="Image" class="form-control"  accept="image/png, image/jpeg" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" value="submit" class="btn btn-primary" id="updSubBtn">Update</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row m-5" style=" border:2px solid #424ef4; border-radius:10px; color:white;">
+    <div class="col-xs-12" style="background-color:#0005A7; border-radius:10px;">
+        <div class="row">
+            <div class="col-md-2 col-lg-4" style="padding: 20px;padding-top:20px;">
+                <div class="form-group">
+                    <label><strong>Gig Title:</strong></label>
+                    <input type="text" placeholder="  Search Gig title here" class="form-control" id="searchGig" style="background-color:white">
+                </div>
+            </div>
+            @*<div class="col-md-2 col-lg-4" style="padding: 20px;padding-top:20px;">
+                    <div class="form-group">
+                        <label><strong>Contact:</strong></label>
+                        <input type="text" class="form-control" id="searchContact" placeholder="  Search Contact Number" style="background-color:white">
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-4" style="padding: 20px;padding-top:20px;">
+                    <div class="form-group">
+                        <label><strong>Email:</strong></label>
+                        <input type="text" class="form-control" id="searchEmail" placeholder="  Search User Email Here" style="background-color:white">
+                    </div>
+                </div>*@
+        </div>
+        <div class="row">
+            <div style="padding: 20px;">
+                <div class="form-group">
+                    <button onclick="SearchUser()" class="btn btn-primary pull-right">Search</button><br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="clearfix">
+    @*<button class="btn btn-primary m-5 pull-right" data-toggle="modal" data-target="#addModal">Add New</button>*@
+
+    <h3 class="text-center">
+        <u>Jobs List</u>
+    </h3>
+</div>
+<br />
+<div style="min-height:700px" class="m-10">
+
+    <div style="font-weight:bold; color:@ViewBag.color ; margin-left:10px;" id="alertMsg">
+        @ViewBag.msg
+    </div>
+
+    <div class="datatable-scroll table-bordered p-10">
+        <table class="table no-footer table-responsive table-striped" id="userTable">
+            <thead class="bg-blue-400">
+                <tr>
+                    <th class="text-bold text-center " style="white-space: nowrap; overflow: hidden;">
+                        Title
+                    </th>
+                    <th class="text-bold text-center " style="white-space: nowrap; overflow: hidden;">
+                        Description
+                    </th>
+                    <th class="text-bold text-center " style="white-space: nowrap; overflow: hidden;">
+                       Price
+                    </th>
+                    <th class="text-bold text-center " style="white-space: nowrap; overflow: hidden;">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<script>
+
+    loadTable()
+
+    function loadTable(title)
+    {
+        $('#userTable').DataTable(
+            {
+                "ajax":
+                {
+                    "url": '@Url.Action("GetGigsList", "Seller")',
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": { GigTitle: title}
+                },
+                'columns':
+                    [
+                        { "data": "Title", "name": "Title" },
+                        { "data": "Description", "name": "description" },
+                        { "data": "Price", "name": "Price" },
+                        { "data": "Action", "name": "" }
+                    ],
+                'columnDefs':
+                    [
+                        {
+                            "targets": 0,
+                            'className': 'col-lg-3 text-center',
+                            "render": function (data, type, full, meta) {
+                                return full.Title;
+                            }
+                        },
+                        {
+                            "targets": 1,
+                            'className': 'col-lg-3 text-center',
+                            "render": function (data, type, full, meta) {
+                                return full.Description;
+                            }
+                        },
+                        {
+                            "targets": 2,
+                            'className': 'col-lg-3 text-center',
+                            "render": function (data, type, full, meta) {
+                                return full.Price+" $";
+                            }
+                        },
+                        {
+                            "targets": 3,
+                            'className': 'col-lg-3 text-center',
+                            'searchable': false,
+                            'orderable': false,
+                            "render": function (data, type, full, meta) {
+                                return '<ul class="icons-list text-center"> <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-menu9"></i> </a> <ul class="dropdown-menu dropdown-menu-right"> ' +
+                                    '<li><a class="text-primary" onclick="updateFunction(' + full.Id + ')"><i class="icon-pencil"></i> Edit</a></li>' +
+                                    '<li><a class="text-danger" onclick="deleteFunction(' + full.Id + ')" data-toggle="modal" data-target="#deleteModal"><i class="glyphicon glyphicon-floppy-remove"></i> Delete</a></li>' +
+                                    '</ul></li></ul>';
+                            }
+                        }
+                    ],
+                "serverSide": "true",
+                "processing": "true",
+                "language":
+                {
+                    "processing": "<i class='icon-spinner spinner icon-3x'></i>",
+                    "search": "<span>Search :</span> _INPUT_",
+                    "searchPlaceholder": "Type to Filter",
+                    "lengthMenu": "<span>Show :</span> _MENU_",
+                    "paginate": { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
+                },
+            });
+    }
+    function SearchUser()
+    {
+        $('#userTable').DataTable().clear();
+        $('#userTable').DataTable().destroy();
+        var title = $('#searchGig').val();
+
+        loadTable(title);
+    }
+
+    function updateFunction(id)
+    {
+        $.ajax({
+            type: 'POST',
+            url: "../Seller/GigById",
+            dataType: "json",
+            data: {
+                id: id
+            },
+            success: function (response) {
+                $("#id").val(response.Id);
+                $("#title").val(response.Title);
+                $("#description").val(response.description);
+                $("#price").val(response.Price);
+                $('#img').attr('src', response.Image);
+                $("#updateModal").modal('show');
+            },
+            error: function ()
+            {
+                alert("ajax Failed");
+            }
+        });
+
+    }
+    function viewCandidates(id) {
+        console.log(id)
+        var a = document.getElementById('view');
+        a.href = "../Client/ViewCandidates?id=" + id + "";
+        a.target = "_blank"
+    }
+    function deleteFunction(id) {
+        var a = document.getElementById('deleteId');
+        a.href = "../Seller/DeleteGig?id=" + id + "";
+    }
+
+</script>
+
+

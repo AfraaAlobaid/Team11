@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "Add Joboffer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .dollar {
+        position: relative;
+    }
+    .bootstrap-tagsinput .tag {
+        background: red;
+        padding: 4px;
+        font-size: 14px;
+    }
+        .dollar input {
+            padding-left: 15px;
+        }
+
+        .dollar:before {
+            position: absolute;
+            content: "$";
+            left: 5px;
+            top: 10px;
+        }
+</style>
+
+<div class="content bg-white m-10">
+    <br />
+    <br />
+    <div class="row" style="height:700px;">
+        <form enctype="multipart/form-data" action="@Url.Action("PostAddJobOffer","Buyer")" method="post">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <div class="text-left" id="alertMsg" style="color:@ViewBag.color ; font-weight:bold">
+                                @ViewBag.msg
+                            </div>
+                            <h3 class="panel-title" align="center"><u>New Job Offer</u></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="text-bold">Title<span class="text-danger">*</span></label>
+                                <input type="text" name="Title" class="form-control" placeholder="Add Job Title" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-bold">Short description<span class="text-danger">*</span></label>
+                                <input onkeyup="countChar(this)"  maxlength="500" style="resize:vertical;" name="Description" class="form-control" placeholder="e.g we require a xyz developer" required />
+                                @*<div id="charNum" style="color:green">0/500 maximum characters</div>*@
+                            </div>
+                            <!--<div class="form-group">
+    <label class="text-bold">Job description<span class="text-danger">*</span></label>
+    <textarea onkeyup="countChar(this)" rows="10" cols="50" maxlength="500" style="resize:vertical;" name="Description" class="form-control" placeholder="Add Job offer description here..." required></textarea>-->
+                            @*<div id="charNum" style="color:green">0/500 maximum characters</div>*@
+                            <!--</div>-->
+                            <div class="form-group">
+                                <label class="text-bold">Job Type<span class="text-danger">*</span></label>
+                                <select required name="JobType" class="select form-control">
+                                    <option value="">Select Job Type</option>
+                                    <option value="Part Time">PART-TIME</option>
+                                    <option value="Full Time">FULL-TIME</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                            <label class="text-bold">Budget<span class="text-danger">*</span></label><br>
+                            <div class="dollar"><input name="Budget" class="form-control" min="0" step="0.01" type="number" required></div>
+                           </div>  <div class="form-group">
+                      <label class="text-bold">Experience Required<span class="text-danger">*</span></label><br>
+                      <input name="RequiredExp" class="form-control" min="0" step="0.01" type="number" required>
+                  </div>
+                        <div class="form-group">
+                            <label class="text-bold">Job Location<span class="text-danger">*</span></label><br>
+                            <input required name="JobLocation" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="text-bold"> Skills Requierd:<span class="text-danger">*</span></label>
+                            <input required type="text" class="form-control" data-role="tagsinput" name="RequiredSkills" id="tags-input" />
+                        </div>
+                        <div class="form-group">
+                            <label class="text-bold">Add Job Related Picture:</label><span class="text-danger">*</span><br />
+                            <input type="file" name="Image" class="form-control" required cept="image/png, image/gif, image/jpeg" />
+                        </div>
+                        <div class="form-group">
+                            <label class="text-bold">Attach Detailed PDF Document:</label><span class="text-danger">*</span><br />
+                            <input type="file" name="AttachedFile" class="form-control" required accept="application/pdf" />
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" id="subBtn" class="btn btn-primary">Add<i class="icon-database-insert position-right"></i></button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    function countChar(val) {
+        var len = val.value.length;
+        if (len >= 1000) {
+            val.value = val.value.substring(0, 500);
+        } else {
+            $('#charNum').text(-(((500 - len)) - (500)) + "/500 maximum characters");
+        }
+    };
+</script>

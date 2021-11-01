@@ -1,0 +1,208 @@
+﻿@{
+    Layout = null;
+
+}
+<head>
+    <title>Signup</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/assets/images/Favicons/D-Fav.jpg">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/core.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/components.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/colors.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" src="~/Content/assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/core/libraries/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/loaders/blockui.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/forms/wizards/stepy.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/core/libraries/jasny_bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/forms/validation/validate.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/visualization/d3/d3.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/forms/styling/switchery.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/pickers/daterangepicker.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/tables/datatables/extensions/row_reorder.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/tables/datatables/extensions/responsive.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/tables/datatables/extensions/pdfmake/vfs_fonts.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/pages/datatables_extension_buttons_html5.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/core/app.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/pages/datatables_extension_row_reorder.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/pages/wizard_stepy.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/plugins/ui/ripple.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/pages/dashboard.js"></script>
+    <link href="~/Content/assets/css/icons/fontawesome/styles.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/icons/fontawesome/fonts/fontawesome-webfont.svg" rel="stylesheet" type="text/css">
+</head>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<!-- Page container -->
+<div class="page-container">
+
+    <!-- Page content -->
+    <div class="page-content">
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content">
+
+                <!-- Registration form -->
+                <form enctype="multipart/form-data" method="post" action="@Url.Action("postRegister","Auth")">
+                    <div class="row">
+                        <div class="col-lg-6 col-lg-offset-3">
+                            <div class="panel registration-form">
+                                <div class="panel-body">
+                                    <div class="text-center">
+                                        <div class="icon-object border-success text-success"><i class="icon-plus3"></i></div>
+                                        <h5 class="content-group-lg">Create account <small class="display-block">All fields are required</small></h5>
+                                    </div>
+                                    <span style="color:@ViewBag.color">@ViewBag.msg</span>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group has-feedback">
+                                                <input required type="text" name="fname" class="form-control" placeholder="First name">
+                                                <div class="form-control-feedback">
+                                                    <i class="icon-user-check text-muted"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group has-feedback">
+                                                <input name="lname" required type="text" class="form-control" placeholder="Last name">
+                                                <div class="form-control-feedback">
+                                                    <i class="icon-user-check text-muted"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group has-feedback">
+                                                <input name="Password" required type="password" class="form-control" placeholder="Your password">
+                                                <div class="form-control-feedback">
+                                                    <i class="icon-user-lock text-muted"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group has-feedback">
+                                                <input name="ConfirmPassword" required type="password" class="form-control" placeholder="Confirm password">
+                                                <div class="form-control-feedback">
+                                                    <i class="icon-user-lock text-muted"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group has-feedback">
+                                        <input required name="Email" type="email" class="form-control" placeholder="Your email">
+                                        <div class="form-control-feedback">
+                                            <i class="fas fa-envelope-open-text text-muted"></i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <input name="Contact" required type="text" class="form-control" placeholder="Your contact">
+                                        <div class="form-control-feedback">
+                                            <i class="fa fa-volume-control-phone text-muted"></i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <input name="Address" required type="text" class="form-control" placeholder="Your Address">
+                                        <div class="form-control-feedback">
+                                            <i class="fas fa-home text-muted"></i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <select required name="Type" class="form-control select mdb-select md-form">
+                                            <option value="">Select Account Type</option>
+                                            <option value="Buyer">Buyer (I want to buy services)</option>
+                                            <option value="Seller">Seller (I want to sell my services)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="display-block text-semibold text-muted">Select Gender</label>
+                                        <label class="radio-inline text-muted">
+                                            <input required type="radio" value="Male" name="Gender" checked="checked">
+                                            Male
+                                        </label>
+
+                                        <label class="radio-inline text-muted">
+                                            <input required value="Female" type="radio" name="Gender">
+                                            Female
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="display-block text-semibold text-muted">Upload Profile Pic</label>
+                                        <input required type="file" name="ProfilePicture" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="display-block text-semibold text-muted">Add short description</label>
+                                        <textarea required style="resize:vertical" class="form-control" rows="3" cols="5" type="text" name="ShortDescription" ></textarea>
+                                    </div>
+                                    <div class="text-right">
+                                        <a href="@Url.Action("Login","Auth")" class="btn btn-link"><i class="icon-arrow-left13 position-left"></i> Back to login form</a>
+                                        <button type="submit" class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10"><b><i class="icon-plus3"></i></b> Create account</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- /registration form -->
+                <!-- Footer -->                <!-- /footer -->
+
+            </div>
+            <!-- /content area -->
+
+        </div>
+        <!-- /main content -->
+
+    </div>
+    <!-- /page content -->
+
+</div>
+<!-- /page container -->
+<!-- /basic layout -->
+<script>
+    // Material Select Initialization
+    $(document).ready(function () {
+        $('.mdb-select').materialSelect();
+    });
+    var check = function () {
+        if (document.getElementById('password').value ==
+            document.getElementById('confirm_password').value) {
+            document.getElementById('message').style.color = 'green';
+            document.getElementById('message').innerHTML = 'varified';
+        } else {
+            document.getElementById('message').style.color = 'red';
+            document.getElementById('message').innerHTML = 'not varified';
+        }
+    }
+</script>
+
+
+        </div>
